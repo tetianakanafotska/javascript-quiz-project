@@ -7,14 +7,6 @@ class Quiz {
     this.currentQuestionIndex = 0;
   }
 
-  // class Question {
-  //     constructor(text, choices, answer, difficulty) {
-  //       this.text = text;
-  //       this.choices = choices;
-  //       this.answer = answer;
-  //       this.difficulty = difficulty;
-  //     }
-
   getQuestion() {
     return this.questions[this.currentQuestionIndex];
   }
