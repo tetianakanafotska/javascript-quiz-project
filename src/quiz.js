@@ -7,14 +7,6 @@ class Quiz {
     this.currentQuestionIndex = 0;
   }
 
-  // class Question {
-  //     constructor(text, choices, answer, difficulty) {
-  //       this.text = text;
-  //       this.choices = choices;
-  //       this.answer = answer;
-  //       this.difficulty = difficulty;
-  //     }
-
   getQuestion() {
     return this.questions[this.currentQuestionIndex];
   }
@@ -29,7 +21,6 @@ class Quiz {
     while (currentIndex != 0) {
       let randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
-
       [this.questions[currentIndex], this.questions[randomIndex]] = [
         this.questions[randomIndex],
         this.questions[currentIndex],
@@ -49,5 +40,24 @@ class Quiz {
     } else if (this.currentQuestionIndex === this.questions.length) {
       return true;
     }
+  }
+
+  filterQuestionsByDifficulty(difficulty) {
+    if (difficulty >= 1 && difficulty <= 3) {
+      const result = this.questions.filter((question) => {
+        return question.difficulty === difficulty;
+      });
+      this.questions = result;
+    }
+    return this.questions;
+  }
+
+  averageDifficulty() {
+    const difficulty = this.questions.reduce((acc, question) => {
+      const sum = acc + question.difficulty;
+      return sum;
+    }, 0);
+
+    return difficulty / this.questions.length;
   }
 }
