@@ -106,6 +106,8 @@ input[type="radio"] {
     min-width: 25px;
     margin: 0 auto;
     text-align: left;
+    display: flex;
+    flex-direction: column;
 }
 
 #quizDescription, #question, #result {

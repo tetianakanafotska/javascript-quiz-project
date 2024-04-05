@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     new Question("What is 2 + 2?", ["3", "4", "5", "6"], "4", 1),
     new Question("What is the capital of France?", ["Miami", "Paris", "Oslo", "Rome"], "Paris", 1),
     new Question("Who created JavaScript?", ["Plato", "Brendan Eich", "Lea Verou", "Bill Gates"], "Brendan Eich", 2),
-    new Question("What is the mass–energy equivalence equation?", ["E = mc^2", "E = m*c^2", "E = m*c^3", "E = m*c"], "E = mc^2", 3),
+    new Question("What is the mass–energy equivalence equation?", ["E = mc^2", "E = m*c^2", "E = m*c^3", "E = m*c"], "E = mc^2", 3)
     // Add more questions here
   ];
   const quizDuration = 120; // 120 seconds (2 minutes)
@@ -92,28 +92,31 @@ document.addEventListener("DOMContentLoaded", () => {
     // Shuffle the choices of the current question by calling the method 'shuffleChoices()' on the question object
     question.shuffleChoices();
     
-    
 
     // YOUR CODE HERE:
     //
     // 1. Show the question
     // Update the inner text of the question container element and show the question text
+    questionContainer.innerText = question.text
 
     
     // 2. Update the green progress bar
     // Update the green progress bar (div#progressBar) width so that it shows the percentage of questions answered
-    
-    progressBar.style.width = `65%`; // This value is hardcoded as a placeholder
+
+    //progressBar.style.width = `65%`; // This value is hardcoded as a placeholder
+
+    const indexNow = quiz.currentQuestionIndex +1;
+    const barWidth = (indexNow/questions.length) * 100;
+    progressBar.style.width = `${barWidth}%`;
 
 
 
     // 3. Update the question count text 
     // Update the question count (div#questionCount) show the current question out of total questions
     
-    questionCount.innerText = `Question 1 of 10`; //  This value is hardcoded as a placeholder
+    questionCount.innerText = `Question 1 of ${questions.length}`;
 
-
-    
+  
     // 4. Create and display new radio input element with a label for each choice.
     // Loop through the current question `choices`.
       // For each choice create a new radio input with a label, and append it to the choice container.
@@ -128,11 +131,27 @@ document.addEventListener("DOMContentLoaded", () => {
       // Hint 3: You can use the `element.appendChild()` method to append an element to the choices container.
       // Hint 4: You can use the `element.innerText` property to set the inner text of an element.
 
-  }
+  
+      for (let i=0;i<question.choices.length;i++){
+
+        let div = document.createElement("div");
+        div.classList.add('choice-item');
+
+        let input = document.createElement("input");
+        input.setAttribute('type', 'radio');
+        input.setAttribute('name', 'choice');
+        input.setAttribute('value', question.choices[i]);
+
+        let label = document.createElement("label");
+        label.innerText = question.choices[i]
+
+        div.append(input, label)
+        choiceContainer.append(div);
+      }
 
 
   
-  function nextButtonHandler () {
+  function nextButtonHandler () {}
     let selectedAnswer; // A variable to store the selected answer value
 
 
