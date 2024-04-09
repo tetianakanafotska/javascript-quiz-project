@@ -72,16 +72,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /************  TIMER  ************/
 
+  let intervalID;
   const timer = () => {
-    setInterval(() => {
+    intervalID = setInterval(() => {
       quiz.timeRemaining--;
       minutes = Math.floor(quiz.timeRemaining / 60)
         .toString()
         .padStart(2, "0");
       seconds = (quiz.timeRemaining % 60).toString().padStart(2, "0");
       timeRemainingContainer.innerText = `${minutes}:${seconds}`;
+      console.log(`${minutes}:${seconds}`);
       if (quiz.timeRemaining === 0) {
-        clearInterval(timer);
+        clearInterval(intervalID);
         showResults();
       }
     }, 1000);
@@ -104,6 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // If the quiz has ended, show the results
     if (quiz.hasEnded()) {
       showResults();
+      clearInterval(intervalID);
+      console.log("quiz ended");
       return;
     }
 
@@ -195,7 +199,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Show the next question by calling the function `showQuestion()`.
 
   function showResults() {
-    clearInterval(timer);
     // 1. Hide the quiz view (div#quizView)
     quizView.style.display = "none";
 
@@ -214,7 +217,6 @@ document.addEventListener("DOMContentLoaded", () => {
     quizView.style.display = "block";
     // reset timer
     quiz.timeRemaining = quizDuration;
-    console.log(quiz.timeRemaining);
     minutes = Math.floor(quiz.timeRemaining / 60)
       .toString()
       .padStart(2, "0");
